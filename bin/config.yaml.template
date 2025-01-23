@@ -1,0 +1,65 @@
+target_path: 'target' # The directory to monitor for file changes.
+processed_path: 'processed' # Directory to move processed files to (if post_process is set to 1).
+max_workers: 5 # Number of worker threads for concurrent processing (default: number of CPU cores).
+post_process: -1 # -1 delete | 0 do nothing | 1 move to processed_path
+reload_config: 1000  # Periodically Check for configuration changes in millisecond | Default 0 (none)
+check_interval: 1 # Periodically check watched folder accessibility in second
+exclude_path: 
+ - 'target\dontwatchthisfolder' # skip watching this folder
+ - 'target\WatchThisFolder\ButNotThisSubfolder' # skip watching only on subfolder
+ - '*abc*' # skip watching any folders containing 'abc' in it's name
+ - '*yadayada*' # or skip watching folder name containing 'yadayada'
+file_type: 
+ - ".txt" # process only this filetype
+ - ".pdf" # and this filetype
+ - ".docx" # and this filetype too
+process_on_start: true # Process existing files in target_path as newly created files
+logfile_path: "WatchThatDir.log"
+enable_logging: false
+debounce: 10
+init_run:
+ - "cmd.exe"
+ - "/c"
+ - "echo"
+ - "WatchThatDir started!"
+ # or can be declared like this...
+ # init_run: ["cmd.exe","/c","echo","WatchThatDir started!"]
+exit_run:
+ - "cmd.exe"
+ - "/c"
+ - "echo"
+ - "WatchThatDir stopped!"
+# or can be declared like this...
+ # exit_run: ["cmd.exe","/c","echo","WatchThatDir stopped!"]
+oncreate_run:
+ - "cmd.exe"
+ - "/c"
+ - "echo"
+ - "Created: "
+ - "{filepath}"
+# or can be declared like this...
+ # oncreate_run: ["cmd.exe","/c","echo","Created: ","{filepath}"]
+onmodify_run:
+ - "cmd.exe"
+ - "/c"
+ - "echo"
+ - "Modified: "
+ - "{filepath}"
+# or can be declared like this...
+ # onmodify_run: ["cmd.exe","/c","echo","Modified: ","{filepath}"]
+onrename_run:
+ - "cmd.exe"
+ - "/c"
+ - "echo"
+ - "Renamed: "
+ - "{filepath}"
+# or can be declared like this...
+ # onrename_run: ["cmd.exe","/c","echo","Renamed: ","{filepath}"]
+onremove_run: 
+ - "cmd.exe"
+ - "/c"
+ - "echo"
+ - "Removed: "
+ - "{filepath}"
+# or can be declared like this...
+ # onremove_run: ["cmd.exe","/c","echo","Removed: ","{filepath}"]
